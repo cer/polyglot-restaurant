@@ -1,0 +1,20 @@
+--- 
+applications: 
+  target/appassembler/: 
+    name: available-restaurant-management
+    framework: 
+      name: standalone
+      info: 
+        mem: 64M
+        description: Standalone Application
+        exec: 
+    runtime: java
+    command: bin/available-restaurant-management-main
+    url: 
+    mem: 512M
+    instances: 1
+    services: 
+      polyglot-rabbitmq: 
+        type: rabbitmq
+      polyglot-redis-available: 
+        type: redis

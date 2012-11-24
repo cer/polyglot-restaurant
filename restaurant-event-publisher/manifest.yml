@@ -1,0 +1,20 @@
+--- 
+applications: 
+  target/appassembler/: 
+    name: restaurant-event-publisher
+    framework: 
+      name: standalone
+      info: 
+        mem: 64M
+        description: Standalone Application
+        exec: 
+    runtime: java
+    command: bin/restaurant-event-publisher-main
+    url: 
+    mem: 512M
+    instances: 1
+    services: 
+      polyglot-mysql: 
+        type: mysql
+      polyglot-rabbitmq: 
+        type: rabbitmq

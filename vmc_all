@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for dir in restaurant-management-webapp restaurant-event-publisher available-restaurant-management; do
+  (cd $dir ; vmc $*)
+done

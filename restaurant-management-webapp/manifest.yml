@@ -1,0 +1,18 @@
+--- 
+applications: 
+  target/: 
+    name: restaurant-management-webapp
+    framework: 
+      name: spring
+      info: 
+        mem: 512M
+        description: Java SpringSource Spring Application
+        exec: 
+    url: restaurant-management.cloudfoundry.com
+    mem: 128M
+    instances: 1
+    services: 
+      polyglot-mysql: 
+        type: mysql
+      polyglot-redis-cache: 
+        type: redis

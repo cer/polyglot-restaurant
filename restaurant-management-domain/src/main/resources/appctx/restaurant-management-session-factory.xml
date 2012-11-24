@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:testdb" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="hibernateTemplate"
+          class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+
+        <property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+			</props>
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="post-delete" value-ref="hibernateEventListener" />
+				<entry key="post-insert" value-ref="hibernateEventListener" />
+				<entry key="post-update" value-ref="hibernateEventListener" />
+			</map>
+		</property>
+		<property name="mappingLocations">
+			<list>
+				<value>classpath*:hbm/*.hbm.xml</value>
+			</list>
+		</property>
+
+	</bean>
+
+	<bean id="hibernateEventListener"
+		class="net.chrisrichardson.crudevents.changetracking.hibernate.ChangeTrackingListener">
+		<property name="trackedEntityClasses">
+			<list>
+				<value>net.chrisrichardson.polyglotpersistence.restaurantmanagement.domain.Restaurant</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

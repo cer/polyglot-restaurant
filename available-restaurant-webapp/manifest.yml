@@ -1,0 +1,16 @@
+--- 
+applications: 
+  target/: 
+    name: available-restaurant-webapp
+    framework: 
+      name: spring
+      info: 
+        mem: 512M
+        description: Java SpringSource Spring Application
+        exec: 
+    url: available-restaurant.cloudfoundry.com
+    mem: 512M
+    instances: 1
+    services: 
+      polyglot-redis-available: 
+        type: redis

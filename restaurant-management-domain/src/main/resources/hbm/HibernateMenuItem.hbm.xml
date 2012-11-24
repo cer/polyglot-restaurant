@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+	<class name="net.chrisrichardson.polyglotpersistence.restaurantmanagement.domain.MenuItem"
+		lazy="true" table="FTGO_MENU_ITEM">
+
+		<id name="id" column="MENU_ITEM_ID" type="int"
+			unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">FTGO_UNIQUE_ID_SEQUENCE</param>
+			</generator>
+		</id>
+
+		<version name="version" column="VERSION" />
+		<property name="name" column="NAME" />
+		<property name="price" column="PRICE" />
+	</class>
+
+</hibernate-mapping>

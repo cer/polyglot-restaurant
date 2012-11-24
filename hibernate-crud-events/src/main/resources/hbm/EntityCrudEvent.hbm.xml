@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+	<class name="net.chrisrichardson.crudevents.events.JsonEntityCrudEvent"
+		dynamic-update="true" table="ENTITY_CRUD_EVENT">
+
+		<id name="id" 
+			unsaved-value="-1">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="eventType" column="event_type" not-null="true"/>
+		<property name="entityId" column="entity_id" not-null="true"/>
+		<property name="entityType" column="entity_type" not-null="true"/>
+		<property name="json"  not-null="true"/>
+		<property name="processed" not-null="true"/>
+	</class>
+
+</hibernate-mapping>

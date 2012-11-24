@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="net.chrisrichardson.polyglotpersistence.restaurantmanagement.domain"
+	default-access="field">
+
+	<class name="Restaurant" table="FTGO_RESTAURANT">
+
+
+		<id name="id" column="RESTAURANT_ID" type="int"
+			unsaved-value="-1">
+			<generator class="native">
+				<param name="sequence">FTGO_UNIQUE_ID_SEQUENCE</param>
+			</generator>
+		</id>
+		
+		<version name="version"/>
+		<property name="name" column="NAME" />
+		<property name="type" column="TYPE" />
+
+		<set name="serviceArea" lazy="true"
+			table="FTGO_RESTAURANT_ZIPCODE">
+			<key column="RESTAURANT_ID" />
+			<element type="string" >
+				<column name="zipcode" index="true"/>
+			</element>
+		</set>
+
+		<list name="menuItems" lazy="true"
+			cascade="all,delete-orphan">
+			<key column="RESTAURANT_ID" not-null="true" />
+			<index column="MENU_ITEM_INDEX" />
+			<one-to-many class="MenuItem" />
+
+		</list>
+		<set name="openingHours" lazy="true"
+			table="FTGO_RESTAURANT_TIME_RANGE" cascade="all">
+			<key>
+				<column name="RESTAURANT_ID" index="true"/>
+			</key>
+			<composite-element class="TimeRange">
+				<property name="dayOfWeek" column="day_Of_Week" />
+				<property name="openingTime" column="opening_time"/>
+				<property name="closingTime" column="closing_time"/>
+			</composite-element>
+		</set>
+	</class>
+
+	<query name="findAvailableRestaurants">
+		<![CDATA[
+select r 
+from Restaurant r  
+ inner join r.openingHours tr
+ inner join r.serviceArea z
+ where :zipCode = z and 
+	tr.dayOfWeek = :dayOfWeek 
+	  and tr.openingTime <= :timeOfDay 
+	  and :timeOfDay < tr.closingTime 
+]]>
+	</query>
+
+</hibernate-mapping>

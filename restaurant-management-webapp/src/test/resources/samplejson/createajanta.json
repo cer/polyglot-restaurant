@@ -1,0 +1,10 @@
+{
+	"name": "Ajanta Restaurant",
+	"serviceArea" : ["94619"],
+	"openingHours" : [
+		{ "dayOfWeek" : 1, "openingTime" : "1730", "closingTime" : 2130}
+	],
+	"menuItems" : [
+		{"name" : "Chicken vindaloo", "price" : 17}
+	]
+}
