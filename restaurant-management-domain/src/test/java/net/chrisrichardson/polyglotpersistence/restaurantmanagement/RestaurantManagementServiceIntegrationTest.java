@@ -23,6 +23,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath*:/appctx/*.xml")
@@ -154,4 +157,69 @@ public class RestaurantManagementServiceIntegrationTest {
     Assert.assertEquals(EntityCrudEventType.DELETE.toString(), event.getEventType());
   }
 
+  @Autowired
+  private TransactionTemplate transactionTemplate;
+  
+  @Test
+  public void insertShouldBeRolledBack() {
+    transactionTemplate.execute(new TransactionCallback<Void>() {
+
+      @Override
+      public Void doInTransaction(TransactionStatus status) {
+        Restaurant r = RestaurantMother.makeEggShopRestaurant();
+        restaurantManagementService.add(r);
+        hibernateTemplate.flush();
+        Assert.assertEquals(1, entityCrudEventRepository.findAll().size());
+        status.setRollbackOnly();
+        return null;
+      }
+    });
+    
+    Assert.assertEquals(0, entityCrudEventRepository.findAll().size());
+
+
+  }
+
+  @Test
+  public void updateShouldBeRolledBack() {
+    final Restaurant r = RestaurantMother.makeEggShopRestaurant();
+    restaurantManagementService.add(r);
+
+    transactionTemplate.execute(new TransactionCallback<Void>() {
+      
+      @Override
+      public Void doInTransaction(TransactionStatus status) {
+        Restaurant r2 = restaurantManagementService.findById(r.getId());
+        r2.setName(r2.getName() + r2.getName());
+        restaurantManagementService.update(r2);
+        hibernateTemplate.flush();
+        Assert.assertEquals(2, entityCrudEventRepository.findAll().size());
+        status.setRollbackOnly();
+        return null;
+      }
+    });
+    
+    Assert.assertEquals(1, entityCrudEventRepository.findAll().size());
+    
+    
+  }
+  @Test
+  public void deleteShouldBeRolledBack() {
+    final Restaurant r = RestaurantMother.makeEggShopRestaurant();
+    restaurantManagementService.add(r);
+    
+    transactionTemplate.execute(new TransactionCallback<Void>() {
+      
+      @Override
+      public Void doInTransaction(TransactionStatus status) {
+        restaurantManagementService.delete(r.getId());
+        hibernateTemplate.flush();
+        Assert.assertEquals(2, entityCrudEventRepository.findAll().size());
+        status.setRollbackOnly();
+        return null;
+      }
+    });
+    
+    Assert.assertEquals(1, entityCrudEventRepository.findAll().size());
+  }
 }
