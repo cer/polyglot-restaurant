@@ -6,10 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import net.chrisrichardson.crudevents.events.EntityCrudEventType;
 import net.chrisrichardson.crudevents.events.JsonEntityCrudEvent;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.AvailableRestaurant;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.Restaurant;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.RestaurantMother;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.RestaurantTestData;
+import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.*;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.testutil.DatabaseInitializer;
 import net.chrisrichardson.polyglotpersistence.util.Address;
 
@@ -68,7 +65,7 @@ public class AvailableRestaurantManagementAmqpIntegrationTest {
   }
 
   private void assertRestaurantWasCreated() {
-    Date deliveryTime = RestaurantTestData.makeGoodDeliveryTime();
+    DeliveryTime deliveryTime = RestaurantTestData.makeGoodDeliveryTime();
     Address deliveryAddress = RestaurantTestData.getADDRESS1();
     System.out.println("Checking");
     try {

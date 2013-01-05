@@ -23,8 +23,9 @@ import org.junit.Test;
 public class RestaurantEndToEndCfTest {
 
   private DefaultHttpClient httpClient;
+  private int foundId;
 
-  @Before
+    @Before
   public void setUp() {
     httpClient = new DefaultHttpClient();
   }
@@ -34,6 +35,21 @@ public class RestaurantEndToEndCfTest {
     String restaurantName = "tastyfood" + System.currentTimeMillis();
     createRestaurant(restaurantName);
     verifyIsRestaurantIsAvailable(restaurantName);
+
+    HttpGet get = new HttpGet(
+              "http://available-restaurant.cloudfoundry.com/restaurant/" + foundId);
+
+    try {
+      HttpResponse response = httpClient.execute(get);
+      Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+      String json = IOUtils.toString(response.getEntity().getContent());
+      JacksonHelper jsonHelper = new JacksonHelper();
+      System.out.println("json=" + json);
+      Map map = jsonHelper.fromJson(json, Map.class);
+      Assert.assertEquals(restaurantName, map.get("name"));
+    } finally {
+      get.releaseConnection();
+    }
   }
 
   private void verifyIsRestaurantIsAvailable(String restaurantName) throws Exception {
@@ -44,7 +60,7 @@ public class RestaurantEndToEndCfTest {
 
   private boolean isAvailable(String restaurantName) throws Exception {
     HttpGet get = new HttpGet(
-        "http://available-restaurant.cloudfoundry.com/availablerestaurants?deliveryZipcode=94619&dayOfWeek=1&timeOfDay=1815");
+        "http://available-restaurant.cloudfoundry.com/availablerestaurants?zipcode=94619&dayOfWeek=1&hour=18&minute=15");
     try {
       HttpResponse response = httpClient.execute(get);
       Assert.assertEquals(200, response.getStatusLine().getStatusCode());
@@ -54,8 +70,10 @@ public class RestaurantEndToEndCfTest {
       System.out.println(map);
       for (Map restaurant : (List<Map>) map.get("availableRestaurants")) {
         String name = (String) restaurant.get("name");
-        if (restaurantName.equals(name))
-          return true;
+        if (restaurantName.equals(name)) {
+            foundId = (Integer) restaurant.get("id");
+            return true;
+        }
       }
       return false;
     } finally {

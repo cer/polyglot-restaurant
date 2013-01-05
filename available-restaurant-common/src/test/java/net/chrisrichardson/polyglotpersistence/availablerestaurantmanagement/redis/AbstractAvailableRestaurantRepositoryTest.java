@@ -8,13 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.AvailableRestaurant;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.SimpleAvailableRestaurantRepository;
+import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.*;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.testutil.DatabaseInitializer;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.testutil.IdentityAssigner;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.Restaurant;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.RestaurantMother;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.RestaurantTestData;
 import net.chrisrichardson.polyglotpersistence.util.Address;
 
 import org.junit.Assert;
@@ -60,7 +56,7 @@ public abstract class AbstractAvailableRestaurantRepositoryTest {
 
         // dumpAvailableRestaurants();
 
-        Date deliveryTime = RestaurantTestData.makeGoodDeliveryTime();
+        DeliveryTime deliveryTime = RestaurantTestData.makeGoodDeliveryTime();
         Address deliveryAddress = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results = repository.findAvailableRestaurants(deliveryAddress, deliveryTime);
         assertFoundAjanta(results);
@@ -68,7 +64,7 @@ public abstract class AbstractAvailableRestaurantRepositoryTest {
 
     @Test
     public void testFindAvailableRestaurants_Monday8Am() {
-        Date deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.MONDAY, 8, 0);
+        DeliveryTime deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.MONDAY, 8, 0);
         Address deliveryAddress = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results = repository.findAvailableRestaurants(deliveryAddress, deliveryTime);
         assertFoundRestaurant(RestaurantMother.MONTCLAIR_EGGSHOP, results);
@@ -76,7 +72,7 @@ public abstract class AbstractAvailableRestaurantRepositoryTest {
 
     @Test
     public void testFindAvailableRestaurants_Saturday245pm() {
-        Date deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.SATURDAY, 14, 45);
+        DeliveryTime deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.SATURDAY, 14, 45);
         Address deliveryAddress = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results = repository.findAvailableRestaurants(deliveryAddress, deliveryTime);
         assertFoundRestaurant(RestaurantMother.MONTCLAIR_EGGSHOP, results);
@@ -84,7 +80,7 @@ public abstract class AbstractAvailableRestaurantRepositoryTest {
 
     @Test
     public void testFindAvailableRestaurants_TuesdayNoon() {
-        Date deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.TUESDAY, 12, 0);
+        DeliveryTime deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.TUESDAY, 12, 0);
         Address deliveryAddress = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results = repository.findAvailableRestaurants(deliveryAddress, deliveryTime);
         assertFoundRestaurants(results, RestaurantMother.MONTCLAIR_EGGSHOP, "Ajanta");
@@ -104,7 +100,7 @@ public abstract class AbstractAvailableRestaurantRepositoryTest {
 
         // dumpAvailableRestaurants();
 
-        Date deliveryTime = RestaurantTestData.makeBadDeliveryTime();
+        DeliveryTime deliveryTime = RestaurantTestData.makeBadDeliveryTime();
         Address deliveryAddress = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results = repository.findAvailableRestaurants(deliveryAddress, deliveryTime);
         Assert.assertTrue(results.isEmpty());
@@ -112,6 +108,7 @@ public abstract class AbstractAvailableRestaurantRepositoryTest {
 
     private void assertFoundAjanta(List<AvailableRestaurant> results) {
         assertFoundRestaurant("Ajanta", results);
+        Assert.assertEquals(ajantaRestaurant.getId(), results.get(0).getId());
     }
 
     private void assertFoundRestaurant(String expectedName, List<AvailableRestaurant> results) {
@@ -125,7 +122,7 @@ public abstract class AbstractAvailableRestaurantRepositoryTest {
         updateRestaurantOpeningHours();
         repository.add(ajantaRestaurant);
 
-        Date deliveryTime = RestaurantTestData.getTimeTomorrow(RestaurantMother.OPENING_HOUR, RestaurantMother.OPENING_MINUTE - 1);
+        DeliveryTime deliveryTime = RestaurantTestData.getTimeTomorrow(RestaurantMother.OPENING_HOUR, RestaurantMother.OPENING_MINUTE - 1);
         Address deliveryAddress = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results = repository.findAvailableRestaurants(deliveryAddress, deliveryTime);
         assertFoundAjanta(results);
@@ -140,7 +137,7 @@ public abstract class AbstractAvailableRestaurantRepositoryTest {
         System.out.println("**** Updating");
         repository.add(ajantaRestaurant);
 
-        Date deliveryTime2 = RestaurantTestData.makeGoodDeliveryTime();
+        DeliveryTime deliveryTime2 = RestaurantTestData.makeGoodDeliveryTime();
         Address deliveryAddress2 = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results2 = repository.findAvailableRestaurants(deliveryAddress2, deliveryTime2);
         assertEmpty(results2);

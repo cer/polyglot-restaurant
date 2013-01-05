@@ -1,11 +1,11 @@
 package net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement;
 
-import java.util.Date;
 import java.util.List;
 
 import net.chrisrichardson.crudevents.events.EntityCrudEventType;
 import net.chrisrichardson.crudevents.events.JsonEntityCrudEvent;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.AvailableRestaurant;
+import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.DeliveryTime;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.Restaurant;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.SimpleAvailableRestaurantRepository;
 import net.chrisrichardson.polyglotpersistence.common.JacksonHelper;
@@ -66,7 +66,7 @@ public class AvailableRestaurantManagementServiceImpl implements AvailableRestau
   }
 
   @Override
-  public List<AvailableRestaurant> findAvailableRestaurants(Address deliveryAddress, Date deliveryTime) {
+  public List<AvailableRestaurant> findAvailableRestaurants(Address deliveryAddress, DeliveryTime deliveryTime) {
     return availableRestaurantRepository.findAvailableRestaurants(deliveryAddress, deliveryTime);
   }
 

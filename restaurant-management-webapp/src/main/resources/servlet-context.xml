@@ -9,9 +9,16 @@
 
 	<mvc:default-servlet-handler />
 
-	<mvc:annotation-driven />
+	<mvc:annotation-driven >
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+                <property name="objectMapper" value="#{restaurantObjectMapperFactory.makeRestaurantObjectMapper()}"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
 	<context:component-scan base-package="net.chrisrichardson.polyglotpersistence.restaurantmanagement.webapp" />
+    <context:component-scan base-package="net.chrisrichardson.polyglotpersistence.ordermanagement.webapp" />
 
 
 </beans>

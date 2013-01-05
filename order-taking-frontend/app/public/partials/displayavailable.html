@@ -1,0 +1,9 @@
+<span>Delivering to {{orderState.deliveryInfo.address.zipcode}} at {{orderState.deliveryInfo.timeOfDay}}</span>
+<table id="availableRestaurantsTable">
+	<tr ng-repeat="r in orderState.availableRestaurants">
+		<td>{{r.name}}</td>
+		<td>
+      		<a href="#/selectrestaurant/{{r.id}}">select</a>
+    	</td>
+	</tr>
+</table>

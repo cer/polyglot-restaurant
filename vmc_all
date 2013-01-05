@@ -1,5 +1,5 @@
 #!/bin/bash
 
-for dir in restaurant-management-webapp restaurant-event-publisher available-restaurant-management; do
+for dir in restaurant-management-webapp restaurant-event-publisher available-restaurant-management available-restaurant-webapp order-taking-frontend/app; do
   (cd $dir ; vmc $*)
 done

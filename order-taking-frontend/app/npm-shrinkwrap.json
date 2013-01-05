@@ -1,0 +1,55 @@
+{
+  "name": "order-taking-frontend",
+  "version": "0.0.0",
+  "dependencies": {
+    "cloudfoundry": {
+      "version": "0.1.0"
+    },
+    "express": {
+      "version": "2.5.8",
+      "dependencies": {
+        "connect": {
+          "version": "1.9.2",
+          "dependencies": {
+            "formidable": {
+              "version": "1.0.11"
+            }
+          }
+        },
+        "mime": {
+          "version": "1.2.4"
+        },
+        "qs": {
+          "version": "0.4.2"
+        },
+        "mkdirp": {
+          "version": "0.3.0"
+        }
+      }
+    },
+    "request": {
+      "version": "2.12.0",
+      "dependencies": {
+        "form-data": {
+          "version": "0.0.3",
+          "dependencies": {
+            "combined-stream": {
+              "version": "0.0.3",
+              "dependencies": {
+                "delayed-stream": {
+                  "version": "0.0.5"
+                }
+              }
+            },
+            "async": {
+              "version": "0.1.9"
+            }
+          }
+        },
+        "mime": {
+          "version": "1.2.7"
+        }
+      }
+    }
+  }
+}

@@ -23,24 +23,20 @@ import net.chrisrichardson.polyglotpersistence.util.Address;
 
 public class RestaurantTestData {
 
-    public static Date makeGoodDeliveryTime() {
+    public static DeliveryTime makeGoodDeliveryTime() {
         return getTimeTomorrow(20);
     }
 
-    public static Date getTimeTomorrow(int hour) {
+    public static DeliveryTime getTimeTomorrow(int hour) {
         return getTimeTomorrow(hour, 0);
     }
 
-    public static Date getTimeTomorrow(int hour, int minute) {
+    public static DeliveryTime getTimeTomorrow(int hour, int minute) {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, 1);
         if (c.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY)
             c.add(Calendar.DAY_OF_MONTH, 1);
-        c.set(Calendar.HOUR_OF_DAY, hour);
-        c.set(Calendar.MINUTE, minute);
-        c.clear(Calendar.MILLISECOND);
-        Date during = c.getTime();
-        return during;
+        return new DeliveryTime(c.get(Calendar.DAY_OF_WEEK), hour, minute);
     }
 
     public static Address getADDRESS1() {
@@ -67,11 +63,11 @@ public class RestaurantTestData {
 
     public static final String BAD_ZIP_CODE = "94618";
 
-    public static Date makeBadDeliveryTime() {
+    public static DeliveryTime makeBadDeliveryTime() {
       return getTimeTomorrow(4);
     }
 
-	public static Date makeDeliveryTime(int dayOfWeek, int hour, int minute) {
+	public static DeliveryTime makeDeliveryTime(int dayOfWeek, int hour, int minute) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_WEEK, dayOfWeek);
         c.set(Calendar.HOUR_OF_DAY, hour);
@@ -79,8 +75,8 @@ public class RestaurantTestData {
         c.clear(Calendar.MILLISECOND);
         if (c.getTime().before(new Date()))
         	c.add(Calendar.DAY_OF_MONTH, 7);
-        System.out.println("deliveryTime=" + c.getTime());
-        return c.getTime();
-	}
+        return new DeliveryTime(c.get(Calendar.DAY_OF_WEEK), hour, minute);
+
+  }
 
 }

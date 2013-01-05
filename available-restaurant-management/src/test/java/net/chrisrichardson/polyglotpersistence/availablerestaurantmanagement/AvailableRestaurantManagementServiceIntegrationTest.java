@@ -6,10 +6,7 @@ import java.util.List;
 
 import net.chrisrichardson.crudevents.events.EntityCrudEventType;
 import net.chrisrichardson.crudevents.events.JsonEntityCrudEvent;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.AvailableRestaurant;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.Restaurant;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.RestaurantMother;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.RestaurantTestData;
+import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.*;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.testutil.DatabaseInitializer;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.testutil.IdentityAssigner;
 import net.chrisrichardson.polyglotpersistence.util.Address;
@@ -79,7 +76,7 @@ public class AvailableRestaurantManagementServiceIntegrationTest {
     add(eggshopRestaurant);
     add(lateNightSnack);
 
-    Date deliveryTime = RestaurantTestData.makeGoodDeliveryTime();
+    DeliveryTime deliveryTime = RestaurantTestData.makeGoodDeliveryTime();
     Address deliveryAddress = RestaurantTestData.getADDRESS1();
     List<AvailableRestaurant> results = service.findAvailableRestaurants(deliveryAddress, deliveryTime);
     assertFoundAjanta(results);
@@ -91,7 +88,7 @@ public class AvailableRestaurantManagementServiceIntegrationTest {
     add(eggshopRestaurant);
     add(lateNightSnack);
 
-    Date deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.MONDAY, 8, 0);
+    DeliveryTime deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.MONDAY, 8, 0);
     Address deliveryAddress = RestaurantTestData.getADDRESS1();
     List<AvailableRestaurant> results = service.findAvailableRestaurants(deliveryAddress, deliveryTime);
     assertFoundRestaurant(RestaurantMother.MONTCLAIR_EGGSHOP, results);
@@ -104,7 +101,7 @@ public class AvailableRestaurantManagementServiceIntegrationTest {
     add(eggshopRestaurant);
     add(lateNightSnack);
 
-    Date deliveryTime = RestaurantTestData.makeBadDeliveryTime();
+    DeliveryTime deliveryTime = RestaurantTestData.makeBadDeliveryTime();
     Address deliveryAddress = RestaurantTestData.getADDRESS1();
     List<AvailableRestaurant> results = service.findAvailableRestaurants(deliveryAddress, deliveryTime);
     Assert.assertTrue(results.isEmpty());
@@ -123,7 +120,7 @@ public class AvailableRestaurantManagementServiceIntegrationTest {
     updateRestaurantOpeningHours();
     update(ajantaRestaurant);
 
-    Date deliveryTime = RestaurantTestData.getTimeTomorrow(RestaurantMother.OPENING_HOUR, RestaurantMother.OPENING_MINUTE - 1);
+    DeliveryTime deliveryTime = RestaurantTestData.getTimeTomorrow(RestaurantMother.OPENING_HOUR, RestaurantMother.OPENING_MINUTE - 1);
     Address deliveryAddress = RestaurantTestData.getADDRESS1();
     List<AvailableRestaurant> results = service.findAvailableRestaurants(deliveryAddress, deliveryTime);
     assertFoundAjanta(results);

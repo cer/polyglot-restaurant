@@ -11,7 +11,7 @@ public interface SimpleAvailableRestaurantRepository {
 
   void add(Restaurant restaurant);
 
-  List<AvailableRestaurant> findAvailableRestaurants(Address deliveryAddress, Date deliveryTime);
+  List<AvailableRestaurant> findAvailableRestaurants(Address deliveryAddress, DeliveryTime deliveryTime);
 
   // To use transactions we need to split reading from writing
   

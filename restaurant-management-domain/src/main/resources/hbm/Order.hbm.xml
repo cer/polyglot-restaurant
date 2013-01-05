@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="net.chrisrichardson.polyglotpersistence.ordermanagement.domain"
+                   default-access="field">
+
+
+    <class name="Order" table="FTGO_ORDER">
+        <id name="id" column="ORDER_ID">
+            <generator class="native">
+                <param name="sequence">FTGO_UNIQUE_ID_SEQUENCE</param>
+            </generator>
+        </id>
+
+        <version name="version"/>
+        <many-to-one name="restaurant"/>
+
+        <list name="lineItems" lazy="true"
+              cascade="all,delete-orphan">
+            <key column="ORDER_ID" not-null="true" />
+            <index column="Line_ITEM_INDEX" />
+            <composite-element class="OrderLineItem">
+                <property name="quantity" column="QUANTITY" />
+                <many-to-one name="menuItem" column="MENU_ITEM_ID"
+                             class="net.chrisrichardson.polyglotpersistence.restaurantmanagement.domain.MenuItem" cascade="none" />
+            </composite-element>
+        </list>
+
+    </class>
+
+
+</hibernate-mapping>

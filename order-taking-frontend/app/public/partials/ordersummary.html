@@ -1,0 +1,81 @@
+<div class="row-fluid">
+
+	<div class="span6">
+
+
+		<form ng-submit="enterCreditCardNumber()" class="form-horizontal">
+				<legend>Enter payment and delivery information</legend>
+				<div class="control-group">
+			        <label class="control-label" for="paymentInfoName">Name</label>
+			        <div class="controls">
+				        <input id="paymentInfoName" type="text" ng-model="orderState.name"  size="50"
+				               placeholder="enter your name"
+				               required>
+				    </div>
+
+			        <label class="control-label" for="paymentInfoCcNumber">Card number</label>
+			        <div class="controls">
+				        <input id="paymentInfoCcNumber" type="text" ng-model="orderState.creditCardNumber"  size="50"
+				               placeholder="enter credit card number"
+				               required>
+				    </div>
+
+			        <label class="control-label" for="deliveryStreet1">Street 1</label>			
+			        <div class="controls">
+						<input id="deliveryStreet1" type="text" ng-model="orderState.deliveryInfo.address.street1" size="50"  placeholder="enter street1"
+						required/>
+				    </div>
+
+			        <div class="controls">
+						<input id="deliveryStreet2" type="text" ng-model="orderState.deliveryInfo.address.street2" size="50"  placeholder="enter street2"/>
+					</div>
+
+			        <label class="control-label" for="deliveryCity">City</label>			
+			        <div class="controls">
+						<input id="deliveryCity" required
+							type="text" ng-model="orderState.deliveryInfo.address.city" size="2"  placeholder="enter city"/>
+					</div>
+
+			        <label class="control-label" for="deliveryState">State</label>			
+			        <div class="controls">
+			        	  <select id="deliveryState" required ng-model="orderState.deliveryInfo.address.state" 
+			        	  		ng-options="i for i in deliveryStates" required style="width: 4em">
+						  </select>
+						{{orderState.deliveryInfo.address.zipcode}}
+					</div>
+			        <div class="controls">
+				        <input id="orderSummaryEnterCreditCardNumberButton" class="btn" type="submit" value="Next">
+				    </div>
+			    </div>
+		</form>	  
+
+	</div>
+
+	<div class="span6">
+		<h1>Your order</h1>
+		<span>Delivering from {{orderState.selectedRestaurant.name}} to {{orderState.deliveryInfo.address.zipcode}} at {{orderState.deliveryInfo.timeOfDay}}</span>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="mi in orderState.selectedMenuItems">
+					<td>{{mi.name}}</td>
+					<td>{{mi.price}}</td>
+					<td>{{mi.quantity}}</td>
+					<td>{{mi.price * mi.quantity}}
+				</tr>
+				<tr>
+					<td colspan="3">Total cost</td>
+					<td><span id="orderTotal">{{orderState.totalCost}}</span></td>
+				</tr>
+			</tbody>				
+		</table>
+	</div>
+</div>

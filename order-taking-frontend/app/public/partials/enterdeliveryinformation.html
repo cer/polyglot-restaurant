@@ -1,0 +1,20 @@
+<form name="deliveryInfoForm" ng-submit="showAvailableRestaurants()">
+  <label for="zipCode">Zip code:</label>
+  <input type="text" name="zipCode" ng-model="deliveryZipCode"  
+		size="5"
+	    placeholder="enter your zip code"
+	    required
+	    ng-pattern="/^[0-9]{5,5}$/"> 
+  <label for="deliveryTimeHour">Delivery Time:</label>
+  <select ng-model="deliveryTime.hour" ng-options="i for i in deliveryHours" required style="width: 4em">
+  </select>
+  <select ng-model="deliveryTime.minute" ng-options="i for i in deliveryMinutes" required style="width: 4em">
+  </select>
+  <select ng-model="deliveryTime.ampm" required style="width: 4em">
+  		<option value="am">AM</option>
+  		<option value="pm">PM</option>
+  </select>
+  <span class="error" ng-show="isNotInFuture()">Please pick a time in the future</span>
+  <br/>
+  <input id="enterDeliveryInfoButton" class="btn-primary" type="submit" value="Next" ng-disabled="isNotInFuture() || deliveryInfoForm.$invalid">
+</form>	  

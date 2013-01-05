@@ -5,19 +5,24 @@ import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.dom
 public class AvailableRestaurant {
 
   private String name;
+  private int id;
 
   public AvailableRestaurant() {
   }
-  
-  public AvailableRestaurant(String name) {
+
+  public AvailableRestaurant(int id, String name) {
+    this.id = id;
     this.name = name;
   }
 
-  public AvailableRestaurant(Restaurant restaurant) {
-    this.name = restaurant.getName();
-  }
+    public int getId() {
+        return id;
+    }
 
-  public String getName() {
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getName() {
     return name;
   }
 

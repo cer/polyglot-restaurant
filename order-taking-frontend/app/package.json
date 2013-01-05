@@ -1,0 +1,15 @@
+{
+  "author": "",
+  "name": "order-taking-frontend",
+  "description": "Front-end for taking orders",
+  "version": "0.0.0",
+  "engines": {
+    "node": "~0.6.6"
+  },
+  "dependencies": {
+    "cloudfoundry": "0.1.0",
+    "express": "2.5.8",
+    "request": "2.12.0"
+    },
+  "devDependencies": {}
+}

@@ -5,12 +5,13 @@ import java.util.List;
 
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.AvailableRestaurant;
 import net.chrisrichardson.crudevents.events.JsonEntityCrudEvent;
+import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.DeliveryTime;
 import net.chrisrichardson.polyglotpersistence.util.Address;
 
 public interface AvailableRestaurantManagementService {
 
   void processEvent(JsonEntityCrudEvent event);
 
-  List<AvailableRestaurant> findAvailableRestaurants(Address deliveryAddress, Date deliveryTime);
+  List<AvailableRestaurant> findAvailableRestaurants(Address deliveryAddress, DeliveryTime deliveryTime);
 
 }

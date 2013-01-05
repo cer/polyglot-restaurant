@@ -1,18 +1,14 @@
 package net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.redis.domain;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.SimpleAvailableRestaurantRepository;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.AvailableRestaurant;
+import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.*;
 import net.chrisrichardson.polyglotpersistence.util.DateTimeUtil;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.redis.util.AvailableRestaurantKeys;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.redis.util.RedisEntityKeyFormatter;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.Restaurant;
-import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.TimeRange;
 import net.chrisrichardson.polyglotpersistence.util.Address;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +70,10 @@ public class SimpleAvailableRestaurantRepositoryImpl implements SimpleAvailableR
   }
 
   @Override
-  public List<AvailableRestaurant> findAvailableRestaurants(Address deliveryAddress, Date deliveryTime) {
+  public List<AvailableRestaurant> findAvailableRestaurants(Address deliveryAddress, DeliveryTime deliveryTime) {
     String zipCode = deliveryAddress.getZip();
-    int dayOfWeek = DateTimeUtil.dayOfWeek(deliveryTime);
-    int timeOfDay = DateTimeUtil.timeOfDay(deliveryTime);
+    int dayOfWeek = deliveryTime.getDayOfWeek();
+    int timeOfDay = deliveryTime.getTimeOfDay();
     String closingTimesKey = closingTimesKey(zipCode, dayOfWeek);
 
     Set<String> trsClosingAfter = redisTemplate.opsForZSet().rangeByScore(closingTimesKey, timeOfDay, 2359);

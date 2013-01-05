@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import net.chrisrichardson.crudevents.repository.EntityCrudEventRepository;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.AvailableRestaurantManagementService;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.AvailableRestaurant;
+import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.DeliveryTime;
 import net.chrisrichardson.polyglotpersistence.availablerestaurantmanagement.domain.RestaurantTestData;
 import net.chrisrichardson.polyglotpersistence.restaurantmanagement.domain.Restaurant;
 import net.chrisrichardson.polyglotpersistence.restaurantmanagement.domain.RestaurantMother;
@@ -79,7 +80,7 @@ public class EndToEndRestaurantTest {
     assertEventuallySucceeds(new Runnable() {
       @Override
       public void run() {
-        Date deliveryTime = RestaurantTestData.makeGoodDeliveryTime();
+        DeliveryTime deliveryTime = RestaurantTestData.makeGoodDeliveryTime();
         Address deliveryAddress = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results = service.findAvailableRestaurants(deliveryAddress, deliveryTime);
         assertFoundAjanta(results);
@@ -89,7 +90,7 @@ public class EndToEndRestaurantTest {
     assertEventuallySucceeds(new Runnable() {
       @Override
       public void run() {
-        Date deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.MONDAY, 8, 0);
+        DeliveryTime deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.MONDAY, 8, 0);
         Address deliveryAddress = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results = service.findAvailableRestaurants(deliveryAddress, deliveryTime);
         Assert.assertEquals(Collections.EMPTY_LIST, results);
@@ -105,7 +106,7 @@ public class EndToEndRestaurantTest {
     assertEventuallySucceeds(new Runnable() {
       @Override
       public void run() {
-        Date deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.MONDAY, 8, 0);
+        DeliveryTime deliveryTime = RestaurantTestData.makeDeliveryTime(Calendar.MONDAY, 8, 0);
         Address deliveryAddress = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results = service.findAvailableRestaurants(deliveryAddress, deliveryTime);
         assertFoundAjanta(results);
@@ -115,7 +116,7 @@ public class EndToEndRestaurantTest {
     assertEventuallySucceeds(new Runnable() {
       @Override
       public void run() {
-        Date deliveryTime = RestaurantTestData.makeGoodDeliveryTime();
+        DeliveryTime deliveryTime = RestaurantTestData.makeGoodDeliveryTime();
         Address deliveryAddress = RestaurantTestData.getADDRESS1();
         List<AvailableRestaurant> results = service.findAvailableRestaurants(deliveryAddress, deliveryTime);
         Assert.assertEquals(Collections.EMPTY_LIST, results);

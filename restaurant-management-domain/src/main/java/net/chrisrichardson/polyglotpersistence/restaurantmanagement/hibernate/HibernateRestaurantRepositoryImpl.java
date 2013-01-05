@@ -40,10 +40,12 @@ public class HibernateRestaurantRepositoryImpl extends HibernateDaoSupport imple
   @Override
   public Restaurant findRestaurant(int restaurantId) {
     Restaurant r = getHibernateTemplate().get(Restaurant.class, restaurantId);
-    r.getName();
-    r.getMenuItems().size();
-    r.getServiceArea().size();
-    r.getOpeningHours().size();
+    if (r != null) {
+      r.getName();
+      r.getMenuItems().size();
+      r.getServiceArea().size();
+      r.getOpeningHours().size();
+    }
     return r;
   }
 

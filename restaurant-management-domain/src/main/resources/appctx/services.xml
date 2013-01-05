@@ -17,8 +17,9 @@
 	<context:annotation-config />
 
 	<context:component-scan base-package="net.chrisrichardson.polyglotpersistence.restaurantmanagement" />
+    <context:component-scan base-package="net.chrisrichardson.polyglotpersistence.ordermanagement" />
 
-	<aop:config>
+    <aop:config>
 		<aop:advisor pointcut="bean(*ServiceImpl)" advice-ref="txAdvice"/>
 	</aop:config>
 

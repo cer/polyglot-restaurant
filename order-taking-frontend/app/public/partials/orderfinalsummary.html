@@ -1,0 +1,70 @@
+
+<h1>Your order</h1>
+
+<span>Delivering from {{orderState.selectedRestaurant.name}}</span>
+
+<table class="table">
+<thead>
+	<tr>
+		<th>Item</th>
+		<th>Price</th>
+		<th>Quantity</th>
+		<th>Total</th>
+	</tr>
+</thead>
+<tbody>
+	<tr ng-repeat="mi in orderState.selectedMenuItems">
+		<td>{{mi.name}}</td>
+		<td>{{mi.price}}</td>
+		<td>{{mi.quantity}}</td>
+		<td>{{mi.price * mi.quantity}}
+	</tr>
+	<tr>
+		<td colspan="3">Total cost</td>
+		<td><span id="orderTotal">{{orderState.totalCost}}</span></td>
+	</tr>
+</tbody>				
+</table>
+
+<h1>Delivery information</h1>
+
+<table>
+	<tr>
+		<td>street1</td>
+		<td>{{orderState.deliveryInfo.address.street1}}</td>
+	</tr>
+	<tr>
+		<td>street2</td>
+		<td>{{orderState.deliveryInfo.address.street2}}</td>
+	</tr>
+	<tr>
+		<td>city</td>
+		<td>{{orderState.deliveryInfo.address.city}}</td>
+	</tr>
+	<tr>
+		<td>state</td>
+		<td>{{orderState.deliveryInfo.address.state}}</td>
+	</tr>
+	<tr>
+		<td>zip code</td>
+		<td>{{orderState.deliveryInfo.address.zipcode}}</td>
+	</tr>
+</table>
+
+<h1>Payment information</h1>
+
+<table>
+	<tr>
+		<td>name</td>
+		<td>{{orderState.name}}</td>
+	</tr>
+	<tr>
+		<td>creditCardNumber</td>
+		<td>{{orderState.creditCardNumber}}</td>
+	</tr>
+</table>
+
+
+<form ng-submit="placeOrder()">
+        <input id="orderFinalSummaryPlaceOrderButton" class="btn-primary" type="submit" value="Place Order">
+</form>	  
