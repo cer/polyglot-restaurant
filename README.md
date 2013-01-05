@@ -7,10 +7,18 @@ This system has a modular, polyglot application as described here http://plainol
 
 It consists of several different applications (i.e. services) that are independently deployable.
 
+order-taking-frontend
+---------------------
+
+A web front-end that lets consumers place orders. It consists of two parts:
+* browser application implemented using AngularJS and Bootstrap
+* a front-end server implemented using NodeJS: serves the browser app HTML/JS/CSS and proxies WS requests to the appropriate backend server
+
 restaurant-management-webapp
 ----------------------------
 
 This web application exposes a really simple/hacked together RESTful WS for performing CRUD operations on Restaurants. See RestaurantCrudController
+For now, this web application also implements OrderManagement web services and backend. See OrderController.
 
 The important part (as it relates to the presentation) is that creating or updating Restaurants adds CRUD events to the queue implemented by a database table.
 
