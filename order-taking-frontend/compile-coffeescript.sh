@@ -1,0 +1,1 @@
+coffee -w -o app/public/genjs app/coffee/public

@@ -14,6 +14,7 @@ files = [
   'test/applib/angular/angular-*.js',
   'test/lib/angular/angular-mocks.js',
   'app/public/js/*.js',
+  'app/public/genjs/*.js',
   'test/unit/*.js'  
 ];
 

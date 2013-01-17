@@ -19,8 +19,8 @@ describe('OrderState', function() {
       orderState = OrderState;
     }));
 
-    it('should be undefined when no restaurant', function() {
-      expect(orderState.getMenuItemQuantities()).toBe(undefined);
+    it('should be [] when no restaurant', function() {
+      expect(orderState.getMenuItemQuantities()).toEqual([]);
     });
  
     it('should return undefined quantities', function() {
@@ -61,6 +61,7 @@ describe('OrderState', function() {
       restaurantInfo.menuItems[1].quantity = 14;
       orderState.updateSelectedMenuItems();
       expect(orderState.selectedMenuItems).toEqual([restaurantInfo.menuItems[1]]);
+      expect(orderState.totalCost).toEqual(14 * restaurantInfo.menuItems[1].price)
     });
    });
 
