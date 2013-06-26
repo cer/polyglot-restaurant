@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="span12">Delivering to {{orderState.deliveryInfo.address.zipcode}} at
+        {{orderState.deliveryInfo.timeOfDay}}
+    </div>
+</div>
+
+<div id="availableRestaurantsTable">
+    <div class="row" ng-repeat="r in orderState.availableRestaurants">
+
+        <div class="span6">{{r.name}}</div>
+        <div class="span1">
+            <a href="#/selectrestaurant/{{r.id}}">select</a>
+        </div>
+    </div>
+</div>

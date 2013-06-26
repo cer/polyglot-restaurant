@@ -30,13 +30,13 @@ proxyToBackend = (baseUrl) ->
   (req, res) ->
     console.log("proxyToBackend=", {baseUrl: baseUrl, method: req.method})
     callback = (error, response, body) -> console.log("error=", error)
-    x = request(baseUrl + req.url, callback)
+    x = request(baseUrl + req.url.substring("/app".length), callback)
     req.pipe(x)
     x.pipe(res)
 
-app.get('/availablerestaurants', proxyToAvailableRestaurant())
-app.get('/restaurant/*', proxyToAvailableRestaurant())
-app.post('/orders', proxyToOrders())
-app.get('/orders', proxyToOrders())
+app.get('/app/availablerestaurants', proxyToAvailableRestaurant())
+app.get('/app/restaurant/*', proxyToAvailableRestaurant())
+app.post('/app/orders', proxyToOrders())
+app.get('/app/orders', proxyToOrders())
 
 

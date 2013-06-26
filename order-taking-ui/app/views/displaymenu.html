@@ -1,0 +1,54 @@
+
+<div class="row-fluid">
+
+	<div class="span4">
+
+		<form  ng-submit="displayOrderSummary()">
+
+				<div id="menuTable" class="row-fluid" ng-repeat="mi in orderState.selectedRestaurant.menuItems">
+                    <div>
+                        <div class="span5">{{mi.name}}</div>
+                        <div class="span3">{{mi.price | currency }}</div>
+                        <input class="span4" type="text" ng-model="mi.quantity"  size="3"
+			               placeholder="enter quantity">
+                    </div>
+				</div>
+
+
+            <div class="row=fluid">
+                <input id="gotoOrderSummaryButton" class="btn-primary" type="submit" value="Next">
+            </div>
+
+		</form>
+	</div>
+
+	<div class="span8">
+		<h1>Your order</h1>
+
+		<span>Delivering from {{orderState.selectedRestaurant.name}} to {{orderState.deliveryInfo.address.zipcode}} at {{orderState.deliveryInfo.timeOfDay}}</span>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="mi in orderState.selectedMenuItems">
+					<td>{{mi.name}}</td>
+					<td>{{mi.price | currency}}</td>
+					<td>{{mi.quantity}}</td>
+					<td>{{mi.price * mi.quantity | currency}}
+				</tr>
+				<tr>
+					<td colspan="3">Total cost</td>
+					<td><span id="orderTotal">{{orderState.totalCost | currency}}</span></td>
+				</tr>
+			</tbody>				
+		</table>
+	</div>
+
+</div>

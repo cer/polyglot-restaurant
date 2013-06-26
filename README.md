@@ -10,9 +10,12 @@ It consists of several different applications (i.e. services) that are independe
 order-taking-frontend
 ---------------------
 
-A web front-end that lets consumers place orders. It consists of two parts:
-* browser application implemented using AngularJS and Bootstrap
-* a front-end server implemented using NodeJS: serves the browser app HTML/JS/CSS and proxies WS requests to the appropriate backend server
+A front-end server (a.k.a. API gateway) implemented using NodeJS: serves the browser app HTML/JS/CSS and proxies WS requests to the appropriate backend server
+
+order-taking-ui
+---------------
+
+The HTML/JS/CSS browser application implemented using AngularJS and Bootstrap. 
 
 restaurant-management-webapp
 ----------------------------

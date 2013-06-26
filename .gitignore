@@ -13,3 +13,4 @@ build.log
 .springBeans
 node_modules
 genjs
+.DS_Store
